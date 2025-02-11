@@ -1,51 +1,39 @@
-  import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import products from "../../data/products.json";
+import ProductCards from "../shop/productCards";
 
-import products from '../../data/products.json'
-import ProductCards from '../shop/productCards';
-  
-  const CategoryPage = () => {
-        const {categoryName} = useParams();
-        const [filteredProducts, setFilteredProducts] = useState([]);
+const CategoryPage = () => {
+  const { categoryName } = useParams();
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
-        useEffect(() => {
-            const filtered = products.filter((product) => product.category === categoryName.toLowerCase());
+  useEffect(() => {
+    const filtered = products.filter(
+      (product) => product.category.toLowerCase() === categoryName.toLowerCase()
+    );
+    setFilteredProducts(filtered);
+  }, [categoryName]);
 
-        setFilteredProducts(filtered);
-        }, [ categoryName])
-        useEffect(() => {
-            window.scrollTo(0,0)
-        }
-    )
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
-
-    return (
-        <>
-      <section className='section__container bg-primary-light'>
-        <h2 className='section__header capitalize'>{categoryName}</h2>
-<p className='section__subheader'> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum corrupti repellendus
-     consequatur! Laboriosam, commodi magnam?</p>
-
+  return (
+    <>
+      <section className="section__container bg-primary-light">
+        <h2 className="section__header capitalize">{categoryName}</h2>
+        <p className="section__subheader">
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum
+          corrupti repellendus consequatur! Laboriosam, commodi magnam?
+        </p>
       </section>
 
-    {/* products cards */}
+      {/* Products Cards */}
+      <div className="section__container">
+        <ProductCards products={filteredProducts} />
+      </div>
+    </>
+  );
+};
 
-    <div className='section__container'> 
-        <ProductCards products={filteredProducts}/>
-    </div>
-
-
-
-
-
-
-
-
-
-
-        </>
-
-    )
-  }
-  
-  export default CategoryPage
+export default CategoryPage;

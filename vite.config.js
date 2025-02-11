@@ -1,12 +1,9 @@
-
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react()], // No need to add Tailwind here
   css: {
-    preprocessorOptions: {
-      css: {},
-    },
+    postcss: './postcss.config.cjs', // Ensure PostCSS is properly configured
   },
 });

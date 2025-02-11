@@ -1,30 +1,45 @@
-import React from 'react';
-import OrderSummary from './productDetails/OrderSummary';
+import React from "react";
+import OrderSummary from "./productDetails/OrderSummary";
 
-const CartModal = ({ products, isOpen, onClose }) => {
+const CartModal = ({ products, isOpen, onClose, onIncrease, onDecrease }) => {
   return (
     <div
       className={`fixed z-[1000] inset-0 bg-black bg-opacity-80 transition-opacity ${
-        isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
       }`}
-      style={{ transition: 'opacity 300ms' }}
+      style={{ transition: "opacity 300ms" }}
     >
       <div
         className={`fixed right-0 top-0 md:w-1/3 w-full bg-white h-full overflow-y-auto transition-transform ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
+          isOpen ? "translate-x-0" : "translate-x-full"
         }`}
-        style={{ transition: 'transform 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94)' }}
+        style={{
+          transition: "transform 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+        }}
       >
         <div className="p-4 mt-4">
           <div className="flex justify-between items-center mb-4">
             <h4 className="text-xl font-semibold">Your Cart</h4>
             <button onClick={onClose} className="text-gray-600 hover:text-gray-900">
-              <i className="ri-close-fill bg-black p-1 text-white"></i>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="size-5"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M6 18L18 6M6 6l12 12"
+                  stroke="black"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </button>
           </div>
 
-{/* cart details */}
-          <div className='cart-items'>
+          {/* Cart Details */}
+          <div className="cart-items">
             {products.length === 0 ? (
               <div>Your cart is empty</div>
             ) : (
@@ -37,11 +52,7 @@ const CartModal = ({ products, isOpen, onClose }) => {
                     <span className="mr-4 px-1 bg-primary text-white rounded-full">
                       0{index + 1}
                     </span>
-                    <img
-                      src={item.image}
-                      alt=""
-                      className="size-12 object-cover mr-4"
-                    />
+                    <img src={item.image} alt="" className="w-12 h-12 object-cover mr-4" />
                     <div>
                       <h5 className="text-lg font-medium">{item.name}</h5>
                       <p className="text-gray-600 text-sm">${Number(item.price).toFixed(2)}</p>
@@ -49,13 +60,15 @@ const CartModal = ({ products, isOpen, onClose }) => {
                   </div>
                   <div className="flex items-center space-x-2 mt-2">
                     <button
-                      className="size-6 flex items-center justify-center px-1.5 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300"
+                      onClick={() => onDecrease(item.id)}
+                      className="w-6 h-6 flex items-center justify-center px-1.5 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300"
                     >
                       -
                     </button>
                     <span>{item.quantity}</span>
                     <button
-                      className="size-6 flex items-center justify-center px-1.5 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300"
+                      onClick={() => onIncrease(item.id)}
+                      className="w-6 h-6 flex items-center justify-center px-1.5 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300"
                     >
                       +
                     </button>
@@ -65,13 +78,8 @@ const CartModal = ({ products, isOpen, onClose }) => {
             )}
           </div>
 
-{/**calculations */}
-{
-  products.length === 0 && (
-    <OrderSummary/>
-  )
-}
-
+          {/* Order Summary (Only Show If Products Exist) */}
+          {products.length > 0 && <OrderSummary />}
         </div>
       </div>
     </div>

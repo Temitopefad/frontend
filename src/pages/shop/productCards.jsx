@@ -1,8 +1,8 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
-import RatingStars from '../../components/RatingStars';
-import {addToCart} from '../../Redux/feature/cart/cartSlice'
+import React from "react";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import RatingStars from "../../components/RatingStars";
+import { addToCart } from "../../Redux/features/cart/cartSlice";
 
 const ProductCards = ({ products }) => {
   const dispatch = useDispatch();
@@ -13,14 +13,22 @@ const ProductCards = ({ products }) => {
 
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-      {products.map((product, index) => (
-        <div key={index} className="product__card">
-          <div className="relative w-full">
+      {products.map((product) => (
+        <div key={product.id} className="product__card">
+          <div className="relative w-full group">
             <Link to={`/shop/${product.id}`}>
-              <img src={product.image} alt={product.name} onError={(e) => e.target.src = "/fallback-image.jpg"} />
+              <img 
+                src={product.image} 
+                alt={product.name} 
+                onError={(e) => {
+                  if (e.target.src !== "/fallback-image.jpg") {
+                    e.target.src = "/fallback-image.jpg";
+                  }
+                }} 
+              />
             </Link>
 
-            <div className="hover:block absolute top-3 right-3">
+            <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
               <button
                 onClick={(e) => {
                   e.stopPropagation();

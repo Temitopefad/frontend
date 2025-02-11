@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Poppins:wght@400;500;600;700&display=swap");
 
+
 :root {
   --primary-color: #ed3849;
   --primary-color-dark: #d23141;
@@ -124,6 +125,28 @@ nav {
 .nav__icons span a:hover {
   color: var(--primary-color);
 }
+
+.cart-icon {
+  position: relative;
+  display: inline-block;
+}
+
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 
 .header__container {
   min-height: 650px;
@@ -295,13 +318,13 @@ nav {
     grid-template-columns: repeat(4, 1fr);
   }
 }
- /* .ri-shopping-cart-line{
+ .ri-shopping-cart-line{
   background-color: var(--primary-color);
   
 }
 .ri-shopping-cart-line:hover{
-  background-color: #0f172a; */
-
+  background-color: #0f172a;
+}
 
 .product__card__content {
   text-align: center;
